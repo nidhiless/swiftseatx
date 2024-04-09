@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiftseat - Bus Selector</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        select {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            appearance: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bus Selector</h1>
+        </header>
+        <main>
+            <p>Select Morning or Evening Buses:</p>
+            <select id="busType">
+                <option value="morning">Morning Buses</option>
+                <option value="evening">Evening Buses</option>
+            </select>
+            <p>Select a bus:</p>
+            <select name="bus" id="busSelector">
+                <!-- Options will be dynamically added based on user selection -->
+            </select>
+            <button id="nextButton" class="button">Next</button>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Swiftseat</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const busTypeSelector = document.getElementById("busType");
+            const busSelector = document.getElementById("busSelector");
+            const nextButton = document.getElementById("nextButton");
+
+            // Function to populate the bus selector based on user selection
+            function populateBusSelector(selectedType) {
+                busSelector.innerHTML = ""; // Clear existing options
+                const buses = selectedType === "morning" ? morningBuses : eveningBuses;
+                buses.forEach(bus => {
+                    const option = document.createElement("option");
+                    option.value = bus.value;
+                    option.textContent = bus.label;
+                    busSelector.appendChild(option);
+                });
+            }
+
+            // Define morning and evening buses
+            const morningBuses = [
+                { value: "Kurmannapalem_NAD", label: "Kurmannapalem DEPO - VIA NAD TO GITAM (6:25 AM - 7:50 AM)" },
+                { value: "Kurmannapalem_SCINDIA", label: "Kurmannapalem DEPO - VIA SCINDIA TO GITAM (6:25 AM - 7:55 AM)" },
+                { value: "Gajuwaka_Gajuwaka-1", label: "Gajuwaka DEPO - Gajuwaka-1 TO GITAM (6:40 AM - 7:50 AM)" },
+                { value: "Gajuwaka_Gajuwaka-2", label: "Gajuwaka DEPO - Gajuwaka-2 TO GITAM (6:40 AM - 7:50 AM)" },
+                { value: "Gajuwaka_SCINDIA", label: "Gajuwaka DEPO - VIA SCINDIA TO GITAM (6:40 AM - 7:55 AM)" },
+                { value: "Pendurthi_Pendurthi-1", label: "Pendurthi DEPO - Pendurthi-1 TO GITAM (6:40 AM - 7:50 AM)" },
+                { value: "Pendurthi_Pendurthi-2", label: "Pendurthi DEPO - Pendurthi-2 TO GITAM (6:45 AM - 7:50 AM)" },
+                { value: "Pendurthi_Pendurthi-3", label: "Pendurthi DEPO - Pendurthi-3 TO GITAM (6:55 AM - 7:50 AM)" },
+                { value: "Pendurthi_Pendurthi-4", label: "Pendurthi DEPO - Pendurthi-4 TO GITAM (6:55 AM - 7:50 AM)" },
+                { value: "NAD_NAD-1", label: "NAD DEPO - NAD-1 TO GITAM (6:40 AM - 7:50 AM)" },
+                { value: "NAD_NAD-2", label: "NAD DEPO - NAD-2 TO GITAM (6:45 AM - 7:50 AM)" },
+                { value: "Birla_Birla", label: "Birla TO GITAM (6:45 AM - 7:55 AM)" },
+                { value: "Gopalapatnam_Gopalapatnam-1", label: "Gopalapatnam DEPO - Gopalapatnam-1 TO GITAM (6:45 AM - 7:50 AM)" },
+                { value: "Gopalapatnam_Gopalapatnam-2", label: "Gopalapatnam DEPO - Gopalapatnam-2 TO GITAM (6:45 AM - 7:50 AM)" },
+                { value: "Waltair_Railway-1", label: "Waltair DEPO - Railway station-1 TO GITAM (7:00 AM - 7:50 AM)" },
+                { value: "Waltair_Railway-2", label: "Waltair DEPO - Railway station-2 TO GITAM (7:00 AM - 7:50 AM)" },
+                { value: "Waltair_Railway-3", label: "Waltair DEPO - Railway station-3 TO GITAM (7:00 AM - 7:50 AM)" },
+                { value: "Jagadamba_Jagadamba", label: "Jagadamba TO GITAM (7:10 AM - 7:50 AM)" },
+                { value: "CBS_CBS", label: "CBS TO GITAM (7:10 AM - 7:50 AM)" },
+                { value: "RTC_Complex", label: "RTC Complex to GITAM (7:05 AM - 7:50 AM)" }
+            ];
+
+            const eveningBuses = [
+                { value: "Kurmannapalem_NAD", label: "FROM GITAM - Kurmannapalem DEPO - VIA NAD (5:15 PM - 6:45 PM)" },
+                { value: "Kurmannapalem_SCINDIA", label: "FROM GITAM - Kurmannapalem DEPO - VIA SCINDIA (5:15 PM - 6:50 PM)" },
+                { value: "Gajuwaka_Gajuwaka-1", label: "FROM GITAM - Gajuwaka DEPO - Gajuwaka-1 (4:15 PM - 5:35 PM)" },
+                { value: "Gajuwaka_Gajuwaka-2", label: "FROM GITAM - Gajuwaka DEPO - Gajuwaka-2 (5:15 PM - 6:00 PM)" },
+                { value: "Gajuwaka_SCINDIA", label: "FROM GITAM - Gajuwaka DEPO - VIA SCINDIA (4:15 PM - 6:50 PM)" },
+                { value: "Pendurthi_Pendurthi-1", label: "FROM GITAM - Pendurthi DEPO - Pendurthi-1 (5:15 PM - 6:20 PM)" },
+                { value: "Pendurthi_Pendurthi-2", label: "FROM GITAM - Pendurthi DEPO - Pendurthi-2 (4:15 PM - 5:20 PM)" },
+                { value: "Pendurthi_Pendurthi-3", label: "FROM GITAM - Pendurthi DEPO - Pendurthi-3 (5:15 PM - 6:20 PM)" },
+                { value: "Pendurthi_Pendurthi-4", label: "FROM GITAM - Pendurthi DEPO - Pendurthi-4 (4:15 PM - 5:20 PM)" },
+                { value: "NAD_NAD-1", label: "FROM GITAM - NAD DEPO - NAD-1 (4:15 PM - 5:25 PM)" },
+                { value: "NAD_NAD-2", label: "FROM GITAM - NAD DEPO - NAD-2 (5:15 PM - 6:25 PM)" },
+                { value: "Birla_Birla", label: "FROM GITAM - Birla (5:15 PM - 6:25 PM)" },
+                { value: "Gopalapatnam_Gopalapatnam-1", label: "FROM GITAM - Gopalapatnam DEPO - Gopalapatnam-1 (4:15 PM - 5:20 PM)" },
+                { value: "Gopalapatnam_Gopalapatnam-2", label: "FROM GITAM - Gopalapatnam DEPO - Gopalapatnam-2 (5:15 PM - 6:20 PM)" },
+                { value: "Waltair_Railway-1", label: "FROM GITAM - Waltair DEPO - Railway station-1 (4:15 PM - 5:00 PM)" },
+                { value: "Waltair_Railway-2", label: "FROM GITAM - Waltair DEPO - Railway station-2 (5:15 PM - 6:00 PM)" },
+                { value: "Waltair_Railway-3", label: "FROM GITAM - Waltair DEPO - Railway station-3 (5:15 PM - 6:00 PM)" },
+                { value: "Jagadamba_Jagadamba", label: "FROM GITAM - Jagadamba (5:15 PM - 5:45 PM)" },
+                { value: "CBS_CBS", label: "FROM GITAM - CBS (4:15 PM - 6:00 PM)" },
+                { value: "RTC_Complex", label: "FROM GITAM - RTC Complex to GITAM (5:15 PM - 6:00 PM)" }
+            ];
+
+            // Populate bus selector based on initial selection
+            populateBusSelector(busTypeSelector.value);
+
+            // Event listener for bus type selection change
+            busTypeSelector.addEventListener("change", function() {
+                const selectedType = busTypeSelector.value;
+                populateBusSelector(selectedType);
+            });
+
+            // Event listener for Next button click
+            nextButton.addEventListener("click", function() {
+                const selectedBus = busSelector.value
+                // Redirect to the next page based on the selected bus
+                window.location.href = "seatselector.html?bus=" + encodeURIComponent(selectedBus);
+            });
+        });
+    </script>
+</body>
+</html>
+

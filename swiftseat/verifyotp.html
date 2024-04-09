@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Verify OTP</h1>
+        </header>
+        <main>
+            <form id="verifyOTPForm" onsubmit="return verifyOTP()">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" id="otp" name="otp" required>
+                <button type="submit">Verify OTP</button>
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2024 Swiftseat</p>
+        </footer>
+    </div>
+
+    <script>
+        function verifyOTP() {
+            // Retrieve the generated OTP from the previous page
+            var randomOTP = /* Retrieve the generated OTP from the previous page */;
+            var enteredOTP = document.getElementById("otp").value;
+            
+            if (enteredOTP === randomOTP.toString()) {
+                alert("OTP verified. Redirecting to bus selector page.");
+                // Redirect to the bus selector page
+                window.location.href = "busselector.html";
+                return false; // Prevent form submission
+            } else {
+                alert("Invalid OTP. Please try again.");
+                // Redirect back to the login page
+                window.location.href = "login.html";
+                return false; // Prevent form submission
+            }
+        }
+    </script>
+</body>
+</html>

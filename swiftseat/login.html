@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+            position: relative; /* Added */
+        }
+
+        .ticket:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 20px 10px 0 10px;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #otpSection {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container ticket">
+        <h1>Login to Swiftseat</h1>
+        <form id="loginForm" onsubmit="return generateOTP()">
+            <label for="rollNumber">Roll Number:</label>
+            <input type="text" id="rollNumber" name="rollNumber" placeholder="Enter Roll Number" required>
+            <label for="gitamMail">Gitam Mail ID:</label>
+            <input type="email" id="gitamMail" name="gitamMail" placeholder="Enter Gitam Mail ID" required>
+            <button type="submit">Generate OTP</button>
+        </form>
+        <div id="otpSection">
+            <label for="otp">One-Time Password (OTP):</label>
+            <input type="text" id="otp" name="otp" required>
+            <button onclick="verifyOTP()">Verify OTP</button>
+        </div>
+    </div>
+    <script>
+        function generateOTP() {
+            var randomOTP = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById("otpSection").style.display = "block";
+            document.getElementById("otp").value = randomOTP;
+            return false;
+        }
+
+        function verifyOTP() {
+            var rollNumber = document.getElementById("rollNumber").value;
+            var gitamMail = document.getElementById("gitamMail").value;
+            var enteredOTP = document.getElementById("otp").value;
+            var randomOTP = document.getElementById("otp").value;
+            var enteredOTP = prompt("Enter the OTP sent to your email:");
+            if (enteredOTP === randomOTP.toString()) {
+                alert("Verification successful. Redirecting to bus selector page.");
+                window.location.href = "busselector.html?rollNumber=" + rollNumber + "&gitamMail=" + gitamMail;
+                return false;
+            } else {
+                alert("Incorrect OTP. Please try again.");
+                window.location.href = "login.html";
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

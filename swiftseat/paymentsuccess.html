@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiftseat - Payment Successful</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include QRCode.js library -->
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .ticket {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #qrCode {
+            margin-top: 30px;
+        }
+
+        #uniqueID {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #007bff;
+        }
+
+        /* Ticket-like appearance */
+        .ticket::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 20px 10px 0 10px;
+            border-color: #fff transparent transparent transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <h1>Swiftseat Ticket</h1>
+        <div id="qrCode"></div>
+        <p id="uniqueID"></p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Generate QR code
+            const qrCodeDiv = document.getElementById('qrCode');
+            const qrCode = new QRCode(qrCodeDiv, {
+                text: 'Swiftseat Ticket', // Sample text for QR code
+                width: 200,
+                height: 200
+            });
+
+            // Generate and display unique ID
+            const uniqueIDDiv = document.getElementById('uniqueID');
+            const uniqueID = generateUniqueID();
+            uniqueIDDiv.textContent = "Unique Code: " + uniqueID;
+        });
+
+        // Function to generate a unique ID
+        function generateUniqueID() {
+            return Math.floor(Math.random() * 90000) + 10000; // Generate a random 5-digit number
+        }
+    </script>
+</body>
+</html>

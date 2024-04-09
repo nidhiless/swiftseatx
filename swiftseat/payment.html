@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiftseat - Payment</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #007bff;
+        }
+
+        main {
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        #totalAmount {
+            font-weight: bold;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #ticket {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        #ticket:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 10px 10px 10px;
+            border-color: transparent transparent #fff transparent;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Payment</h1>
+        </header>
+        <main>
+            <div id="ticket">
+                <p>Your total payment amount is: <span id="totalAmount">0</span> Rupees</p>
+                <button id="paymentButton" class="button">Proceed to Pay</button>
+            </div>
+            <div id="loading" style="display: none;">
+                <p>Loading...</p>
+            </div>
+            <div id="paymentOptions" style="display: none;">
+                <p>Select UPI App:</p>
+                <button id="gpayButton" class="button">GPay</button>
+                <button id="paytmButton" class="button">Paytm</button>
+                <button id="phonepeButton" class="button">PhonePe</button>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Swiftseat</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const totalAmount = new URLSearchParams(window.location.search).get('total');
+            document.getElementById('totalAmount').textContent = totalAmount;
+
+            const paymentButton = document.getElementById('paymentButton');
+            const loadingDiv = document.getElementById('loading');
+            const paymentOptionsDiv = document.getElementById('paymentOptions');
+
+            paymentButton.addEventListener('click', function() {
+                paymentButton.style.display = 'none';
+                loadingDiv.style.display = 'block';
+                setTimeout(function() {
+                    loadingDiv.style.display = 'none';
+                    paymentOptionsDiv.style.display = 'block';
+                }, 2000); // Simulate loading time of 2 seconds
+            });
+
+            // Function to simulate successful payment and redirect to payment successful page
+            function simulatePaymentSuccess() {
+                alert('Payment Successful');
+                window.location.href = 'paymentsuccess.html';
+            }
+
+            // Event listeners for UPI app buttons to simulate payment success
+            document.getElementById('gpayButton').addEventListener('click', simulatePaymentSuccess);
+            document.getElementById('paytmButton').addEventListener('click', simulatePaymentSuccess);
+            document.getElementById('phonepeButton').addEventListener('click', simulatePaymentSuccess);
+        });
+    </script>
+</body>
+</html>
